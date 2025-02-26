@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
+import java.lang.StringBuilder;
 
 public class SpellChecker
 {
-	private static final String DICT_FILE = "dictionary.txt";
+	private static final String DICT_FILE = "Lab03\\\\dictionary.txt";
 
 	private StringSet words;
 	
@@ -37,6 +38,35 @@ public class SpellChecker
 	{
 		ArrayList<String> suggestions = new ArrayList<>();
 		// TODO: Add all words from the set with only one character difference.
+		//Check input against its hash
+		if (words.find(input))
+		{
+			//imput is in list already
+		}
+		else
+		{
+	
+			//loop through each character of the string, maintaining the original seperately
+			for (int i = 0; i < input.length(); i++)
+			{
+				//set up stringbuilder
+				StringBuilder sb = new StringBuilder(input);
+				//	loop through each letter of the alphabet, and hash it to find a match, 
+				//		if a match is found, put it in suggestions
+				for (char j = 'a'; j <= 'z'; j++)
+				{
+					//append j to empty string to make this work
+					sb.setCharAt(i, j);
+					if (words.find(sb.toString()))
+					{
+						suggestions.add(sb.toString());
+					}
+				}
+
+			}
+			
+		}
+	
 		return suggestions;
 	}
 
