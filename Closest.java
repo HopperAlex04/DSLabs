@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.io.*;
 import org.w3c.dom.Node;
 
 public class Closest 
@@ -15,23 +15,23 @@ public class Closest
         map = new Node[b][b];
     }
 
-    public int hash(int key)
+    public int hash(double key)
     {
-        return (key * b) / c;
+        return (int)(key * b) / c;
     }
 
-    public void insert(int x, int y)
+    public void insert(double x, double y)
     {
         map[hash(y)][hash(x)] =  new Node(x, y, map[hash(y)][hash(x)]);
     }
 
     private static class Node
 	{
-		public int x;
-        public int y;
+		public double x;
+        public double y;
 		public Node next;
 
-		public Node(int x, int y, Node next)
+		public Node(double x, double y, Node next)
 		{
 			this.x = x;
             this.y = y;
@@ -43,24 +43,28 @@ public class Closest
     {
         for (int i = 0; i < map.length; i++)
         {
-            for (int j = 0; j < map[i].length; i++)
+            for (int j = 0; j < map[i].length; j++)
             {
                 for (Node k = map[i][j]; k != null; k = k.next)
                 {
                     System.out.println(k.x + ", " + k.y);
                 }
+                System.out.println(j + ", " + i);
             }
         }
     }
 
-    public static void main(String args[])
+    public static void main(String args[]) throws FileNotFoundException
     {
-        Scanner s = new Scanner(System.in);
+        File f = new File("Lab03\\points.txt");
+        Scanner s = new Scanner(f);
+        
         Closest sol = new Closest(1000000, 10);
-        while (s.hasNextLine())
+        while (s.hasNext())
         {
-            sol.insert(s.nextInt(), s.nextInt());
+            sol.insert(s.nextDouble(), s.nextDouble());
         }
+        sol.print();
     }
 
 }
