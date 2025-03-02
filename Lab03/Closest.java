@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io.*;
 
 public class Closest 
 {
@@ -94,7 +93,7 @@ public class Closest
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    public static void main(String args[]) throws FileNotFoundException
+    public static void main(String args[])
     {
         //File f = new File("points.txt");
         Scanner s = new Scanner(System.in);
