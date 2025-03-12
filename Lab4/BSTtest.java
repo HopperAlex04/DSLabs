@@ -5,12 +5,11 @@ public class BSTtest
         Request req = new Request('a', 10);
         BST bst = new BST();
         bst.insert(20, req);
-        bst.insert(11, req);
         bst.insert(9, req);
-        bst.insert(25, req);
-        bst.insert(23, req);
-        bst.insert(26, req);
-        bst.insert(10, req);
+        bst.insert(21, req);
+        bst.print();
+        bst.delete(9);
+        bst.delete(20);
         bst.print();
     }
 }

@@ -40,5 +40,47 @@ public class RunwayReservation
 		}
 
 		// TODO: Complete the runway reservation system.
+		BST flights = new BST(); //Binary Search Tree
+		Node lastFlight = null; 
+		//Iterate through reqs
+		for (int j = 0; j < reqs.length; j++)
+		{
+			//if reqs[i].command == i
+			if (reqs[j].command == 'r')
+			{
+				//if grace is good or surrounding elements do no exist
+				if ((flights.succ(reqs[j].time) == null || ((flights.succ(reqs[j].time)).time - reqs[j].time >= k))
+					&& (flights.pred(reqs[j].time) == null || (reqs[j].time - (flights.pred(reqs[j].time)).time >= k))
+					&& reqs[j].time > curtime
+					&& (lastFlight == null || reqs[j].time - lastFlight.time >=k))
+				{
+					//insert reqs[i] into bst
+					flights.insert(reqs[j].time, reqs[j]);
+				}
+					
+			}
+			else
+			{
+				//else advance time
+				curtime += reqs[j].time;
+				System.out.println("Current time = " + curtime + " units");
+				for (Node p = flights.min(); p != null && p.time < curtime; p = flights.succ(p.time))
+				{
+					//if (p.time + k < curtime)
+					//{
+						lastFlight = p;
+						System.out.println(p.req.airline);
+						flights.delete(p.time);
+					//}
+				}
+			}
+		}
+		curtime = flights.max().time;
+		System.out.println("Current time = " + curtime + " units");
+		for (Node p = flights.min(); p != null && p.time <= curtime; p = flights.succ(p.time))
+		{
+			System.out.println(p.req.airline);
+			flights.delete(p.time);
+		}
 	}
 }

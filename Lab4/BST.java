@@ -21,7 +21,7 @@ public class BST
 		{
 			tree.left = insert(tree.left, time, req);
 		} 
-		else
+		else if (time > tree.time)
 		{
 			tree.right = insert(tree.right, time, req);
 		}
@@ -121,7 +121,7 @@ public class BST
 
 	public void delete(int time)
 	{
-		delete(root, time);
+		root = delete(root, time);
 	}
 
 	public Node delete(Node tree, int time)
@@ -143,14 +143,15 @@ public class BST
 			if (tree.left == null)
 			{
 				return tree.right;
-			}
+			}	
 			if (tree.right == null)
 			{
 				return tree.left;
 			}
-			Node p = succ(tree, time, null);
-			tree.time = p.time;
-			tree.right = delete(tree.right, p.time);
+			Node succNode = succ(time);
+			tree.time = succNode.time;
+			tree.req = succNode.req;
+			tree.right = delete(tree.right, succNode.time);
 		}
 		return tree;
 	}
