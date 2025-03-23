@@ -1,0 +1,85 @@
+for (int i = 0; i < 30; i++)
+        {
+            if (i % 3 == 0)
+            {
+                t.push_back(i);
+                //System.out.println("m1 " + t.m + " " + t.mid.data + " " + t.size);
+                
+            }
+            else if (i % 3 == 1)
+            {
+                t.push_front(i);
+                //System.out.println("m2 " + t.m + " " + t.mid.data + " " + t.size);
+            }
+            else if (i % 3 == 2)
+            {
+                t.push_mid(i);
+                //System.out.println("m3 " + t.m + " " + t.mid.data + " " + t.size);
+            }
+            /*for (int j = 0; j < t.size; j++)
+            {
+                t.get(j);
+            }
+            System.out.println();
+            */            
+        }
+
+        if (size % 2 == 1)
+        {
+            Node newNode = new Node(x, mid, mid.before);
+            mid.before.next = newNode;
+            mid.before = newNode;
+            m++;
+        }
+
+
+        while(!in.equals("end"))
+        {
+            in = s.nextLine();
+            if (in.charAt(0) == 'p' && in.charAt(5) == 'b')
+            {
+                t.push_back(in.charAt(10) - '0');
+            }
+            if (in.charAt(0) == 'p' && in.charAt(5) == 'f')
+            {
+                t.push_front(in.charAt(11) - '0');
+            }
+            if (in.charAt(0) == 'p' && in.charAt(5) == 'm')
+            {
+                t.push_mid(in.charAt(9) - '0');
+            }
+            if (in.charAt(0) == 'g')
+            {
+                t.get(in.charAt(4) - '0');
+            }
+        }
+
+        for (int i = 0; i < 100000; i++)
+        {
+            if (i % 3 == 0)
+            {
+                t.push_back(i);
+                //System.out.println("m1 " + t.m + " " + t.mid.data + " " + t.size);
+                
+            }
+            else if (i % 3 == 1)
+            {
+                t.push_front(i);
+                //System.out.println("m2 " + t.m + " " + t.mid.data + " " + t.size);
+            }
+            else if (i % 3 == 2)
+            {
+                t.push_mid(i);
+                //System.out.println("m3 " + t.m + " " + t.mid.data + " " + t.size);
+            }
+            /*for (int j = 0; j < t.size; j++)
+            {
+                t.get(j);
+            }
+            System.out.println();
+            */            
+        }
+        for (int i = 0; i < t.size; i++)
+        {
+            t.get(i);
+        }
