@@ -19,8 +19,8 @@ public class Median
 				if (-v <= small.find_min()) small.insert(-v);
 				else if (v >= large.find_min()) large.insert(v);
 				else small.insert(-v);
-				if (small.size() > large.size()) large.insert(-small.remove_min());
-				if (small.size() < large.size()) small.insert(-large.remove_min());
+				if (small.size() >= large.size() + 1) large.insert(-small.remove_min());
+				if (small.size() + 1 <= large.size()) small.insert(-large.remove_min());
 			}
 			else if (command == 'q')
 			{
