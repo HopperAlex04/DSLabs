@@ -1,4 +1,5 @@
 package Lab07;
+import java.util.Scanner;
 
 public class Collatz 
 {
@@ -46,8 +47,7 @@ public class Collatz
                 cl = collatzLength(i, memo);
            }
         }
-        System.out.println(max);
-        return cl;
+        return max;
     }
 
     private static void insert(long x, int cl)
@@ -71,6 +71,12 @@ public class Collatz
 
     public static void main(String[] args) 
     {
-        System.out.println(longestInRange(1, 1000000));
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter the range: ");
+        long l = longestInRange(s.nextInt(), s.nextInt());
+        int cl = collatzLength(l);
+        System.out.println("The number with the greatest Collatz length in this range: " + l);
+        System.out.println("The Collatz length of " + l + " is " + cl);
+        s.close();
     }
 }
