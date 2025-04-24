@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Jugs
 {
     private boolean[][] visited;
@@ -5,14 +7,15 @@ class Jugs
     private int a;
     private int b;
     private int c;
-
+    private boolean solved;
     public Jugs(int aCap, int bCap, int target)
     {
         a = aCap;
         b = bCap;
         c = target;
+        solved = false;
         path = new Node[a + 1][b + 1];
-        path[0][0] = new Node(0, 0, null);
+        path[0][0] = new Node(0, 0, null, null);
         visited = new boolean[a + 1][b + 1];
     }
 
@@ -21,12 +24,14 @@ class Jugs
         int a;
         int b;
         Node next;
+        String op;
 
-        public Node(int i, int j, Node pred)
+        public Node(int i, int j, Node pred, String op)
         {
             a = i;
             b = j;
             next = pred;
+            this.op = op;
         }
     }
     public void dfs_visit(int i, int j)
@@ -34,17 +39,18 @@ class Jugs
         visited[i][j] = true;
         if (i + j == c)
         {
-            System.out.println("possible");
-            Node head = new Node(i, j, null);
-            for (Node p = path[i][j].next; p != null; p = p.next)
+            System.out.println("Possible!\n");
+            Node head = null;
+            for (Node p = path[i][j]; p != null; p = p.next)
             {
-                head = new Node(p.a, p.b, head);
+                if (p.a != 0 || p.b != 0) head = new Node(p.a, p.b, head, p.op);
             }
 
             for (Node p = head; p != null; p = p.next)
             {
-                System.out.println(p.a + " " + p.b);
+                System.out.println(p.op);
             }
+            solved = true;
             return;
         }
         int afull = i;
@@ -56,7 +62,7 @@ class Jugs
                 case 0:
                     if (!visited[a][j]) 
                     {
-                        path[a][j] = new Node(a, j, path[i][j]);
+                        path[a][j] = new Node(a, j, path[i][j], "A: Fill Jug 1 " + a + " " + j);
                         dfs_visit(a, j);
                     }
                     //System.out.println("fill a");
@@ -64,7 +70,7 @@ class Jugs
                 case 1:
                     if (!visited[i][b])
                     {
-                        path[i][b] = new Node(i, b, path[i][j]);
+                        path[i][b] = new Node(i, b, path[i][j], "B: Fill Jug 1 " + i + " " + b);
                         dfs_visit(i, b);
                     }
                     //System.out.println("fill b");
@@ -72,14 +78,14 @@ class Jugs
                 case 2:
                     if (!visited[0][j]) 
                     {
-                        path[0][j] = new Node(0, j, path[i][j]);
+                        path[0][j] = new Node(0, j, path[i][j], "C: Empty Jug 1 " + 0 + " " + j);
                         dfs_visit(0, j);
                     }
                     break;
                 case 3:
                     if (!visited[i][0])
                     {
-                        path[i][0] = new Node(i, 0, path[i][j]);
+                        path[i][0] = new Node(i, 0, path[i][j],  "D: Empty Jug 2 " + i + " " + 0);
                         dfs_visit(0, j);
                     }
                     break;
@@ -92,7 +98,7 @@ class Jugs
                     //System.out.println("afill " + afull + " " + bfull);
                     if (!visited[afull][bfull])
                     {
-                        path[afull][bfull] = new Node(afull, bfull, path[i][j]);
+                        path[afull][bfull] = new Node(afull, bfull, path[i][j],  "E: Pour Jug 1 into 2 " + afull + " " + bfull);
                         dfs_visit(afull, bfull);
                     }
                     break;
@@ -107,18 +113,30 @@ class Jugs
                     //System.out.println("bfill " + afull + " " + bfull);
                     if (!visited[afull][bfull])
                     {
-                        path[afull][bfull] = new Node(afull, bfull, path[i][j]);
+                        path[afull][bfull] = new Node(afull, bfull, path[i][j], "F: Pour Jug 2 into 1 " + afull + " " + bfull);
                         dfs_visit(afull, bfull);
                     }
                     break;
             }
+        }
+        if (i == 0 && j == 0 && ! solved)
+        {
+            System.out.println("Impossible!");
         }
     }
 
         
     public static void main(String[] args) 
     {
-        Jugs jug = new Jugs(3,4,5);
+        Scanner s = new Scanner(System.in);
+        System.out.print("Enter A: ");
+        int a = s.nextInt();
+        System.out.print("Enter B: ");
+        int b = s.nextInt();
+        System.out.print("Enter C: ");
+        int c = s.nextInt();
+        Jugs jug = new Jugs(a,b,c);
         jug.dfs_visit(0, 0);
+        s.close();
     }
 }
