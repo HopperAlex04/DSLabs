@@ -1,0 +1,4 @@
+Since I chose to use a binary search tree for my solution, the solution itself would not change, but some alterations to how input is utilized would be necessary.
+Ultimately this wouldn't affect the asymptotic runtime, since binary search tree inserts and the predecessor operation both in logarithmic time. The reason this works
+is because binary search trees work very well for dynamic data, so inserting additional data and retrieving predecessors will not significantly affect runtime. I would 
+recommend a more sophisticated balancing mechanism to gurantee logarithmic runtime as input increases, such as an AVL or Red-Black tree.
