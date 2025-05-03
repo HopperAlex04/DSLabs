@@ -1,4 +1,4 @@
-import java.util.Random;
+//import java.util.Random;
 import java.util.Scanner;
 
 public class Island 
@@ -17,7 +17,14 @@ public class Island
             {
                 if (in(k) && in(l) && !visited[k][l] && map[k][l])
                 {
-                    dfs_visit(k, l);
+                    try
+                    {
+                        dfs_visit(k, l);
+                    }
+                    catch(StackOverflowError e)
+                    {
+                        System.out.println(e);
+                    }
                 }
             }
         }
@@ -61,6 +68,22 @@ public class Island
             }
         }
 
+        // Random r = new Random();
+        // for (int i = 0; i < n; i++)
+        // {
+        //     for (int j = 0; j < n; j++)
+        //     {
+        //         map[i][j] = r.nextInt(10) > 4;
+        //     }
+        // }
+        // for (int i = 0; i < n; i++)
+        // {
+        //     for (int j = 0; j < n; j++)
+        //     {
+        //         System.out.print(map[i][j] + " ");
+        //     }
+        //     System.out.println();
+        // }
         visited = new boolean[n][n];
         for (int i = 0; i < n; i++)
         {
